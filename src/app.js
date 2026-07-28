@@ -12,4 +12,14 @@ app.use(express.static("public"));
 app.use(cookieParser());
 import userRouter from './routes/user.routes.js'
 app.use('/api/v1/users',userRouter)
+app.get('/login',(req,res) => {
+    return res.status(201).json({message:"login page "})
+})
+app.use((err, req, res, next) => {
+    return res.status(err.statusCode || err.status || 500).json({
+        success: false,
+        message: err.message,
+        errors: err.errors || []
+    });
+});
 export default app;
